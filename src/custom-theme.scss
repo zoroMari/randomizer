@@ -1,0 +1,22 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$randomizer-primary: mat.define-palette(mat.$indigo-palette, 400);
+$randomizer-accent: mat.define-palette(mat.$orange-palette, A200);
+$randomizer-warn: mat.define-palette(mat.$red-palette, 400);
+
+$randomizer-theme: mat.define-light-theme((
+  color: (
+    primary: $randomizer-primary,
+    accent: $randomizer-accent,
+    warn: $randomizer-warn,
+  )
+));
+
+@include mat.all-component-themes($randomizer-theme);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Montserrat, "Helvetica Neue", sans-serif; }
+
+
