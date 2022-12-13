@@ -14,9 +14,11 @@ $gray-palette: mat.define-palette(mat.$gray-palette);
 
 $primary-main-color: mat.get-color-from-palette($primary-palette);
 $primary-light-color: mat.get-color-from-palette($primary-palette, 50);
+$primary-background-color: #FAFBFF;
 $accent-color: mat.get-color-from-palette($accent-palette);
 $warn-color: mat.get-color-from-palette($warn-palette);
 $success-color: mat.get-color-from-palette($succes-palette);
 $gray-light-color: mat.get-color-from-palette($gray-palette, 300);
-$white-color: #fff
+$white-color: #fff;
+$black-color: #333;
 

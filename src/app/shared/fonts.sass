@@ -1,3 +1,10 @@
+@import './colors'
+
+@mixin header
+  @include font-weight($header-weight)
+  font-size: $large-font
+  color: $primary-main-color
+
 @mixin font-weight($weight)
   font-weight: $weight
 
@@ -5,5 +12,11 @@
   font-weight: 400
   font-size: 16px
 
-$header-weight: 700
+$header-weight: 600
+
+$small-font: 12px
+$regular-font: 16px
+$regular-medium-font: 18px
+$medium-font: 24px
+$large-font: 48px
 

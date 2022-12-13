@@ -1,0 +1,26 @@
+@import '../shared/spacing'
+@import '../shared/colors'
+
+.menu
+  width: 100%
+  padding: $medium-spacing 0px
+  display: flex
+  justify-content: space-between
+
+  &__list
+    padding-left: 0
+    display: flex
+
+    li
+      display: flex
+      align-items: center
+
+      img
+        margin-left: $small-spacing
+
+    li:not(:last-of-type)
+      margin-right: $large-spacing
+
+    li:nth-of-type(2)
+      color: $primary-main-color
+
