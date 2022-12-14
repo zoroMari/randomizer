@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { TitleComponent } from './title/title.component';
 import { WordGeneratedComponent } from './word-generated/word-generated.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { WordGeneratedComponent } from './word-generated/word-generated.componen
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

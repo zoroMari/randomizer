@@ -1,0 +1,41 @@
+@import '../../shared/fonts'
+@import '../../shared/spacing'
+@import '../../shared/colors'
+@import '../../shared/variables'
+
+
+form
+  display: flex
+  flex-direction: column
+  align-items: center
+  padding: $regular-spacing 0px 0px 0px
+
+  .formLine
+    display: flex
+    width: 100%
+
+    mat-form-field
+      width: 100%
+
+      &:not(:last-of-type)
+        margin-right: $medium-spacing
+
+  .moreConditions
+    display: flex
+    width: 100%
+    flex-direction: column
+    margin-top: $large-spacing
+
+    .title
+      font-size: $regular-medium-font
+      margin-bottom: $medium-spacing
+      color: $accent-color
+      display: flex
+      width: 100%
+
+  .sybmitButton
+    @include button-text
+    margin: $regular-spacing 0px $large-spacing 0px
+
+
+
