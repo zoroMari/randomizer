@@ -1,0 +1,65 @@
+<form [formGroup]="form">
+  <div class="formLine formLine_1">
+    <mat-form-field appearance="outline">
+      <mat-label>Word length</mat-label>
+      <input matInput formControlName="length" type="number" min="1">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Text style</mat-label>
+      <mat-select formControlName="style">
+        <mat-option
+          *ngFor="let style of styleList"
+          value="style"
+        >
+          {{ style }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Possible letters</mat-label>
+      <mat-select
+        formControlName="letters"
+        multiple
+      >
+        <mat-option
+          *ngFor="let letter of letterList"
+          value="letter"
+        >
+          {{ letter }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="moreConditions">
+    <p class="title">Add more conditions if needed:</p>
+
+    <div class="formLine formLine_2">
+      <mat-form-field appearance="outline">
+        <mat-label>Starts with</mat-label>
+        <input matInput formControlName="starts">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Includes inside</mat-label>
+        <input matInput formControlName="includes">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Ends with</mat-label>
+        <input matInput formControlName="ends">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <button
+    class="sybmitButton"
+    type="submit"
+    mat-raised-button
+    color="accent"
+  >
+    Generate word
+  </button>
+</form>
