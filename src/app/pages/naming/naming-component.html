@@ -1,6 +1,6 @@
 <app-title title="Naming"></app-title>
 
-<form [formGroup]="form">
+<form [formGroup]="form" (submit)="handleGenerateWord()">
   <div class="formLine formLine_1">
     <mat-form-field appearance="outline">
       <mat-label>Word length</mat-label>
@@ -12,7 +12,7 @@
       <mat-select formControlName="style">
         <mat-option
           *ngFor="let style of styleList"
-          value="style"
+          [value]="style"
         >
           {{ style }}
         </mat-option>
@@ -27,13 +27,17 @@
       >
         <mat-option
           *ngFor="let letter of letterList"
-          value="letter"
+          [value]="letter"
         >
           {{ letter }}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </div>
+
+  <section class="checkboxLine">
+    <mat-checkbox class="checkbox">Don't show words with two identical letters next to each other</mat-checkbox>
+  </section>
 
   <div class="moreConditions">
     <p class="title">Add more conditions if needed:</p>
@@ -66,4 +70,4 @@
   </button>
 </form>
 
-<app-word-generated></app-word-generated>
+<app-word-generated [wordGenerated]="wordGenerated"></app-word-generated>

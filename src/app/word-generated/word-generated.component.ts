@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-word-generated',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./word-generated.component.sass']
 })
 export class WordGeneratedComponent implements OnInit {
+  @Input() wordGenerated: string = '---'
 
   constructor() { }
 
