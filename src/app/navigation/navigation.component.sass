@@ -1,11 +1,19 @@
-@import '../shared/spacing'
-@import '../shared/colors'
+@import '../shared/styles/spacing'
+@import '../shared/styles/colors'
 
 .menu
   width: 100%
   padding: $medium-spacing 0px
   display: flex
   justify-content: space-between
+
+  a
+    text-decoration: none
+    color: $black-color
+
+    &.active
+      color: $primary-main-color
+      font-weight: 500
 
   &__list
     padding-left: 0
