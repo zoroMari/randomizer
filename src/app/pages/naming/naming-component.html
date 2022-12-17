@@ -22,6 +22,20 @@
     <mat-form-field appearance="outline">
       <mat-label>Possible letters</mat-label>
       <mat-select
+        formControlName="letterCondition"
+      >
+        <mat-option
+          *ngFor="let cond of letterConditions"
+          [value]="cond"
+        >
+          {{ cond }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Possible letters</mat-label>
+      <mat-select
         formControlName="letters"
         multiple
       >
@@ -36,7 +50,12 @@
   </div>
 
   <section class="checkboxLine">
-    <mat-checkbox class="checkbox">Don't show words with two identical letters next to each other</mat-checkbox>
+    <mat-checkbox
+      class="checkbox"
+      formControlName="identicalLetters"
+    >
+      Don't show words with two identical letters next to each other
+    </mat-checkbox>
   </section>
 
   <div class="moreConditions">
@@ -70,4 +89,9 @@
   </button>
 </form>
 
-<app-word-generated [wordGenerated]="wordGenerated"></app-word-generated>
+<app-word-generated
+  [wordGenerated]="wordGenerated"
+  [saveButton]="wordGenerated !== '---'"
+>
+</app-word-generated>
+

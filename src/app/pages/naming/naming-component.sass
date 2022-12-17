@@ -4,45 +4,51 @@
 @import '../../shared/styles/variables'
 
 
-form
+:host
+  height: 100%
   display: flex
   flex-direction: column
-  align-items: center
-  padding: $regular-spacing 0px 0px 0px
 
-  .formLine
+  form
     display: flex
-    width: 100%
-
-    mat-form-field
-      width: 100%
-
-      &:not(:last-of-type)
-        margin-right: $medium-spacing
-
-  .checkboxLine
-    display: flex
-    width: 100%
-
-    .checkbox
-      color: $black-color
-
-  .moreConditions
-    display: flex
-    width: 100%
     flex-direction: column
-    margin-top: $large-spacing
+    align-items: center
+    padding: $regular-spacing 0px 0px 0px
 
-    .title
-      font-size: $regular-medium-font
-      margin-bottom: $medium-spacing
-      color: $accent-color
+    .formLine
       display: flex
       width: 100%
 
-  .sybmitButton
-    @include button-text
-    margin: $regular-spacing 0px $large-spacing 0px
+      mat-form-field
+        width: 100%
 
+        &:not(:last-of-type)
+          margin-right: $medium-spacing
 
+    .checkboxLine
+      display: flex
+      width: 100%
 
+      .checkbox
+        color: $black-color
+
+    .moreConditions
+      display: flex
+      width: 100%
+      flex-direction: column
+      margin-top: $large-spacing
+
+      .title
+        font-size: $regular-medium-font
+        margin-bottom: $medium-spacing
+        color: $accent-color
+        display: flex
+        width: 100%
+
+    .sybmitButton
+      @include button-text
+      margin: $regular-spacing 0px $large-spacing 0px
+
+  app-word-generated
+    height: 100%
+    margin-bottom: $large-spacing

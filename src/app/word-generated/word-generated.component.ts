@@ -6,7 +6,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./word-generated.component.sass']
 })
 export class WordGeneratedComponent implements OnInit {
-  @Input() wordGenerated: string = '---'
+  @Input() wordGenerated: string = '---';
+  @Input() saveButton: boolean = false;
 
   constructor() { }
 

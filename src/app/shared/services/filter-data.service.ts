@@ -1,13 +1,18 @@
 import { Injectable } from "@angular/core";
+import { PossibleLetters, TextStyle } from "../models/conditions-enums.model";
 
 @Injectable({
   providedIn: 'root',
 })
-export class FilterService {
+export class FilterDataService {
+  private _letterConditions: string[] = [
+    PossibleLetters.all,
+    PossibleLetters.vowels,
+    PossibleLetters.consonants,
+    PossibleLetters.select,
+  ]
+
   private _letterList: string[] = [
-    'All letters',
-    'Only vowels',
-    'Only consonants',
     'A',
     'B',
     'C',
@@ -37,10 +42,14 @@ export class FilterService {
   ];
 
   private _testStyle: string[] =[
-    'Uppercase',
-    'Lowercase',
-    'Capitalize',
+    TextStyle.upper,
+    TextStyle.lower,
+    TextStyle.cap,
   ]
+
+  get letterConditions() {
+    return this._letterConditions;
+  }
 
   get letterList() {
     return this._letterList;
