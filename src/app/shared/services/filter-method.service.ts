@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { TextStyle } from "../models/conditions-enums.model";
+import { TextStyle, PossibleLetters } from "../models/conditions-enums.model";
 
 @Injectable({providedIn: 'root'})
 export class FilterMethodService {
@@ -12,7 +12,7 @@ export class FilterMethodService {
     return Math.floor(Math.random() * max);
   }
 
-  public styleOfWord(word: string, condition: TextStyle): string {
+  public addStyleToWord(word: string, condition: TextStyle): string {
     switch (condition) {
       case TextStyle.upper:
         return word.toUpperCase();
@@ -24,6 +24,26 @@ export class FilterMethodService {
 
       case TextStyle.cap:
         return word[0].toUpperCase() + word.slice(1).toLowerCase();
+        break;
+    }
+  }
+
+  public filterLetters(possibleLettersCondition: PossibleLetters, allLetters: string, selectedLetters: string): string {
+    switch (possibleLettersCondition) {
+      case PossibleLetters.all:
+        return allLetters;
+        break;
+
+      case PossibleLetters.consonants:
+        return 'bcdfghjklmnpqrstvwxz';
+        break;
+
+      case PossibleLetters.vowels:
+        return 'aeiouy';
+        break;
+
+      case PossibleLetters.select:
+        return selectedLetters;
         break;
     }
   }

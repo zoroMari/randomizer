@@ -12,36 +12,38 @@ export class FilterDataService {
     PossibleLetters.select,
   ]
 
-  private _letterList: string[] = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'O',
-    'P',
-    'Q',
-    'R',
-    'S',
-    'T',
-    'U',
-    'V',
-    'W',
-    'X',
-    'Y',
-    'Z',
-  ];
+  // private _letterList: string[] = [
+  //   'A',
+  //   'B',
+  //   'C',
+  //   'D',
+  //   'E',
+  //   'F',
+  //   'G',
+  //   'H',
+  //   'I',
+  //   'J',
+  //   'K',
+  //   'L',
+  //   'M',
+  //   'N',
+  //   'O',
+  //   'P',
+  //   'Q',
+  //   'R',
+  //   'S',
+  //   'T',
+  //   'U',
+  //   'V',
+  //   'W',
+  //   'X',
+  //   'Y',
+  //   'Z',
+  // ];
 
-  private _testStyle: string[] =[
+  private _letterList: string = 'abcdefghijklmnopqrstuvwxyz';
+
+  private _textStyle: string[] =[
     TextStyle.upper,
     TextStyle.lower,
     TextStyle.cap,
@@ -55,7 +57,7 @@ export class FilterDataService {
     return this._letterList;
   }
 
-  get testStyle() {
-    return this._testStyle;
+  get textStyle() {
+    return this._textStyle;
   }
 }
