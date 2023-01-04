@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Subscription } from "rxjs";
+import { FormControl, FormGroup, ValidationErrors, Validators } from "@angular/forms";
+import { map, mergeMap, Subject, Subscription } from "rxjs";
 import { PossibleLetters, TextStyle } from "src/app/shared/models/conditions-enums.model";
 import { FilterDataService } from "src/app/shared/services/filter-data.service";
 import { FilterMethodService } from "src/app/shared/services/filter-method.service";
@@ -12,12 +12,15 @@ import { FilterMethodService } from "src/app/shared/services/filter-method.servi
 })
 export class NamingComponent implements OnInit, OnDestroy {
   private _sub!: Subscription;
+  public form!: FormGroup;
+  public wordGenerated: string = '---';
+
   public letterConditionsAll!: string[];
   public letterList!: string[];
   public styleList!: string[];
-  public form!: FormGroup;
-  public wordGenerated: string = '---';
   public possibleLettersDisable = true;
+
+  public wordMinLength = new Subject<number>();
 
   constructor(
     private _filterDataService: FilterDataService,
@@ -31,17 +34,17 @@ export class NamingComponent implements OnInit, OnDestroy {
     this._sub = this.form.controls['letterCondition'].valueChanges.subscribe(
       (value: PossibleLetters) => {
         this.possibleLettersDisable = value !== PossibleLetters.select;
-        const letterSelected = this.form.controls['lettersSelected'];
+        const letterSelectedField = this.form.controls['lettersSelected'];
         const lettersSelected: string[] = Array.from(this._filterMethodService.filterLetters(
           value, this._filterDataService.letterList, this.form.controls['lettersSelected'].value)
         );
 
         if (value !== PossibleLetters.select) {
-          letterSelected.disable();
-          letterSelected.setValue(lettersSelected);
+          letterSelectedField.disable();
+          letterSelectedField.setValue(lettersSelected);
         } else {
-          letterSelected.enable();
-          letterSelected.setValue([]);
+          letterSelectedField.enable();
+          letterSelectedField.setValue([]);
         }
       }
     )
@@ -55,11 +58,42 @@ export class NamingComponent implements OnInit, OnDestroy {
         }
       )
     )
+
+    this._sub.add(
+      this.form.controls['starts'].valueChanges.subscribe(
+        (starts) => {
+          this.wordMinLength.next(starts.length + this.form.controls['includes'].value.length + this.form.controls['ends'].value.length);
+        }
+      )
+    )
+
+    this._sub.add(
+      this.form.controls['includes'].valueChanges.subscribe(
+        (includes) => this.wordMinLength.next(includes.length + this.form.controls['starts'].value.length + this.form.controls['ends'].value.length)
+      )
+    )
+
+    this._sub.add(
+      this.form.controls['ends'].valueChanges.subscribe(
+        (ends) => this.wordMinLength.next(ends.length + this.form.controls['starts'].value.length + this.form.controls['includes'].value.length)
+      )
+    )
+
+    this._sub.add(
+      this.wordMinLength.subscribe(
+        (value) => {
+          this.form.controls['length'].setValidators([Validators.required, Validators.min(value)]);
+          this.form.controls['length'].updateValueAndValidity();
+        }
+      )
+    )
   }
 
   public handleGenerateWord() {
     const options = this._getValuesFromForm();
     const word: string[] = [];
+
+    if (this.form.invalid) return;
 
     while (word.length < options.length) {
       let letter: string = this._filterMethodService.getRandomItemFromArray(options.lettersSelected);
@@ -82,6 +116,9 @@ export class NamingComponent implements OnInit, OnDestroy {
     const lettersSelected: string[] = Array.from(this._filterMethodService.filterLetters(
       lettersCondition, this._filterDataService.letterList, this.form.controls['lettersSelected'].value)
     );
+    const start: string = this.form.controls['starts'].value;
+    const includes: string = this.form.controls['includes'].value;
+    const ends: string = this.form.controls['ends'].value;
 
     return {
       length,
@@ -89,12 +126,15 @@ export class NamingComponent implements OnInit, OnDestroy {
       lettersCondition,
       lettersSelected,
       identicalLetters,
+      start,
+      includes,
+      ends,
     }
   }
 
   private _formInitialization() {
     this.form = new FormGroup({
-      length: new FormControl('5', Validators.required),
+      length: new FormControl('5', [Validators.required]),
       style: new FormControl(this.styleList[0], Validators.required),
       letterCondition: new FormControl(this.letterConditionsAll[0], Validators.required),
       lettersSelected: new FormControl({ value: [], disabled: this.possibleLettersDisable }, Validators.required),
@@ -112,6 +152,6 @@ export class NamingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this._sub.unsubscribe();
+    this._sub.unsubscribe();
   }
 }

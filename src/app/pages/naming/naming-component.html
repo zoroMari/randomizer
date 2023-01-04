@@ -5,6 +5,9 @@
     <mat-form-field appearance="outline">
       <mat-label>Word length</mat-label>
       <input matInput formControlName="length" type="number" min="1">
+      <mat-error *ngIf="form.controls['length'].invalid">
+        Increase your word length!
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -87,7 +90,6 @@
     type="submit"
     mat-raised-button
     color="accent"
-    [disabled]="!possibleLettersDisable && form.controls['lettersSelected'].value.length < 1"
   >
     Generate word
   </button>
@@ -98,4 +100,3 @@
   [saveButton]="wordGenerated !== '---'"
 >
 </app-word-generated>
-
