@@ -4,7 +4,7 @@ import { PossibleLetters, TextStyle } from "../models/conditions-enums.model";
 @Injectable({
   providedIn: 'root',
 })
-export class FilterDataService {
+export class NamingFilterDataService {
   private _letterConditions: string[] = [
     PossibleLetters.all,
     PossibleLetters.vowels,

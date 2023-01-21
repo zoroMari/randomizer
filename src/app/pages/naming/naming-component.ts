@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormControl, FormGroup, ValidationErrors, Validators } from "@angular/forms";
-import { map, mergeMap, Subject, Subscription } from "rxjs";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Subject, Subscription } from "rxjs";
 import { PossibleLetters, TextStyle } from "src/app/shared/models/conditions-enums.model";
-import { FilterDataService } from "src/app/shared/services/filter-data.service";
+import { NamingFilterDataService } from "src/app/shared/services/naming-filter-data.service";
 import { FilterMethodService } from "src/app/shared/services/filter-method.service";
 
 @Component({
@@ -11,7 +11,6 @@ import { FilterMethodService } from "src/app/shared/services/filter-method.servi
   styleUrls: ['./naming-component.sass'],
 })
 export class NamingComponent implements OnInit, OnDestroy {
-  private _sub!: Subscription;
   public form!: FormGroup;
   public wordGenerated: string = '---';
 
@@ -22,8 +21,10 @@ export class NamingComponent implements OnInit, OnDestroy {
 
   public wordMinLength = new Subject<number>();
 
+  private _sub!: Subscription;
+
   constructor(
-    private _filterDataService: FilterDataService,
+    private _filterDataService: NamingFilterDataService,
     private _filterMethodService: FilterMethodService,
   ) {}
 
@@ -62,20 +63,20 @@ export class NamingComponent implements OnInit, OnDestroy {
     this._sub.add(
       this.form.controls['starts'].valueChanges.subscribe(
         (starts) => {
-          this.wordMinLength.next(starts.length + this.form.controls['includes'].value.length + this.form.controls['ends'].value.length);
+          this.wordMinLength.next(starts.trim().length + this.form.controls['includes'].value.trim().length + this.form.controls['ends'].value.trim().length);
         }
       )
     )
 
     this._sub.add(
       this.form.controls['includes'].valueChanges.subscribe(
-        (includes) => this.wordMinLength.next(includes.length + this.form.controls['starts'].value.length + this.form.controls['ends'].value.length)
+        (includes) => this.wordMinLength.next(includes.trim().length + this.form.controls['starts'].value.trim().length + this.form.controls['ends'].value.trim().length)
       )
     )
 
     this._sub.add(
       this.form.controls['ends'].valueChanges.subscribe(
-        (ends) => this.wordMinLength.next(ends.length + this.form.controls['starts'].value.length + this.form.controls['includes'].value.length)
+        (ends) => this.wordMinLength.next(ends.trim().length + this.form.controls['starts'].value.trim().length + this.form.controls['includes'].value.trim().length)
       )
     )
 
@@ -89,23 +90,51 @@ export class NamingComponent implements OnInit, OnDestroy {
     )
   }
 
+  ngOnDestroy(): void {
+    this._sub.unsubscribe();
+  }
+
   public handleGenerateWord() {
     const options = this._getValuesFromForm();
+    const start = [...options.start];
+    const end = [...options.ends];
+    const generatedPart: string[] = [];
     const word: string[] = [];
 
     if (this.form.invalid) return;
 
-    while (word.length < options.length) {
+    word.push(...options.start, ...options.includes, ...options.ends);
+
+    const maxGeneratedLength = options.length - word.length;
+
+    while (generatedPart.length < maxGeneratedLength) {
       let letter: string = this._filterMethodService.getRandomItemFromArray(options.lettersSelected);
-      if (options.identicalLetters === false) {
-        word.push(letter);
-      } else {
-        if (word.length > 0 && word[word.length - 1].toLocaleLowerCase() === letter.toLowerCase()) continue;
-        else word.push(letter);
+
+      if (options.identicalLetters === false) generatedPart.push(letter);
+      else {
+        if (
+          generatedPart.length === 0 &&
+          start.length > 0 &&
+          start[start.length - 1].toLowerCase() === letter.toLowerCase()
+        ) continue;
+
+        else if (
+          generatedPart.length > 0 &&
+          generatedPart[generatedPart.length - 1].toLowerCase() === letter.toLowerCase()
+        ) continue;
+
+        else if (
+          generatedPart.length === maxGeneratedLength - 1 &&
+          end.length > 0 &&
+          end[0].toLowerCase() === letter.toLowerCase()
+        ) continue;
+
+        else generatedPart.push(letter);
       }
     }
 
-    this.wordGenerated = this._filterMethodService.addStyleToWord(word.join(''), options.style);
+    const newWord = [...start, ...generatedPart, ...end];
+    this.wordGenerated = this._filterMethodService.addStyleToWord(newWord.join(''), options.style);
   }
 
   private _getValuesFromForm() {
@@ -116,9 +145,9 @@ export class NamingComponent implements OnInit, OnDestroy {
     const lettersSelected: string[] = Array.from(this._filterMethodService.filterLetters(
       lettersCondition, this._filterDataService.letterList, this.form.controls['lettersSelected'].value)
     );
-    const start: string = this.form.controls['starts'].value;
-    const includes: string = this.form.controls['includes'].value;
-    const ends: string = this.form.controls['ends'].value;
+    const start: string = this.form.controls['starts'].value.trim();
+    const includes: string = this.form.controls['includes'].value.trim();
+    const ends: string = this.form.controls['ends'].value.trim();
 
     return {
       length,
@@ -149,9 +178,5 @@ export class NamingComponent implements OnInit, OnDestroy {
     this.letterConditionsAll = this._filterDataService.letterConditions;
     this.letterList = Array.from(this._filterDataService.letterList.toUpperCase());
     this.styleList = this._filterDataService.textStyle;
-  }
-
-  ngOnDestroy(): void {
-    this._sub.unsubscribe();
   }
 }
