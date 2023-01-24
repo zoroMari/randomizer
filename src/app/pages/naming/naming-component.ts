@@ -98,7 +98,8 @@ export class NamingComponent implements OnInit, OnDestroy {
     const options = this._getValuesFromForm();
     const start = [...options.start];
     const end = [...options.ends];
-    const generatedPart: string[] = [];
+    const include = options.includes;
+    let mediumPart: string[] = [];
     const word: string[] = [];
 
     if (this.form.invalid) return;
@@ -107,33 +108,93 @@ export class NamingComponent implements OnInit, OnDestroy {
 
     const maxGeneratedLength = options.length - word.length;
 
-    while (generatedPart.length < maxGeneratedLength) {
-      let letter: string = this._filterMethodService.getRandomItemFromArray(options.lettersSelected);
+    if (options.includes.length === 0) {
+      const generatedPart = [];
 
-      if (options.identicalLetters === false) generatedPart.push(letter);
-      else {
-        if (
-          generatedPart.length === 0 &&
-          start.length > 0 &&
-          start[start.length - 1].toLowerCase() === letter.toLowerCase()
-        ) continue;
+      while (generatedPart.length < maxGeneratedLength) {
+        let letter: string = this._filterMethodService.getRandomItemFromArray(options.lettersSelected);
 
-        else if (
-          generatedPart.length > 0 &&
-          generatedPart[generatedPart.length - 1].toLowerCase() === letter.toLowerCase()
-        ) continue;
+        if (options.identicalLetters === false) generatedPart.push(letter);
+        else {
+          if (
+            generatedPart.length === 0 &&
+            start.length > 0 &&
+            start[start.length - 1].toLowerCase() === letter.toLowerCase()
+          ) continue;
 
-        else if (
-          generatedPart.length === maxGeneratedLength - 1 &&
-          end.length > 0 &&
-          end[0].toLowerCase() === letter.toLowerCase()
-        ) continue;
+          else if (
+            generatedPart.length > 0 &&
+            generatedPart[generatedPart.length - 1].toLowerCase() === letter.toLowerCase()
+          ) continue;
 
-        else generatedPart.push(letter);
+          else if (
+            generatedPart.length === maxGeneratedLength - 1 &&
+            end.length > 0 &&
+            end[0].toLowerCase() === letter.toLowerCase()
+          ) continue;
+
+          else generatedPart.push(letter);
+        }
       }
+
+      mediumPart = [...generatedPart];
+
+    } else {
+      const generatedPart = [];
+      const lastIndexOfPartBeforeInclude = Math.floor(maxGeneratedLength / 2) - 1;
+      const firstIndexofPartAfterInclude = Math.floor(maxGeneratedLength / 2);
+
+      console.log(' lastIndexOfPartBeforeInclude>>>', lastIndexOfPartBeforeInclude);
+      console.log(' firstIndexofPartAfterInclude>>>', firstIndexofPartAfterInclude);
+
+
+      while (generatedPart.length < maxGeneratedLength) {
+        let letter: string = this._filterMethodService.getRandomItemFromArray(options.lettersSelected);
+
+
+        if (options.identicalLetters === false) generatedPart.push(letter);
+        else {
+          if (
+            generatedPart.length === 0 &&
+            start.length > 0 &&
+            (
+              start[start.length - 1].toLowerCase() === letter.toLowerCase() ||
+              include[0].toLowerCase() === letter.toLowerCase()
+            )
+          ) continue;
+
+          else if (
+            generatedPart.length > 0 &&
+            generatedPart[generatedPart.length - 1].toLowerCase() === letter.toLowerCase()
+          ) continue;
+
+          else if (
+            generatedPart.length === lastIndexOfPartBeforeInclude &&
+            letter.toLowerCase() === include[0].toLowerCase()
+          ) continue;
+
+          else if (
+            generatedPart.length === maxGeneratedLength - 1 &&
+            end.length > 0 &&
+            end[0].toLowerCase() === letter.toLowerCase()
+          ) continue;
+
+          else if (
+            generatedPart.length === firstIndexofPartAfterInclude &&
+            letter.toLowerCase() === include[include.length - 1].toLowerCase()
+          ) continue;
+
+          else generatedPart.push(letter);
+        }
+      }
+
+      const firstPart = generatedPart.slice(0, lastIndexOfPartBeforeInclude + 1);
+      const secondPart = generatedPart.slice(firstIndexofPartAfterInclude);
+
+      mediumPart = [...firstPart, ...include, ...secondPart];
     }
 
-    const newWord = [...start, ...generatedPart, ...end];
+    const newWord = [...start, ...mediumPart, ...end];
     this.wordGenerated = this._filterMethodService.addStyleToWord(newWord.join(''), options.style);
   }
 
