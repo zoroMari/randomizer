@@ -11,6 +11,9 @@ const routes: Route[] = [
     path: 'about',
     loadChildren: () => import('./pages/about/about.module').then(m => m.AboutModule),
   },
+  { path: 'saved/:title',
+    loadChildren: () => import('./pages/saved-list/saved-list.module').then(m => m.SavedListModule),
+  },
   { path: '', redirectTo: 'naming', pathMatch: 'full' },
   {
     path: '**',

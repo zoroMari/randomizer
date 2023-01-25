@@ -5,6 +5,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatIconModule} from '@angular/material/icon';
+
 @NgModule({
   imports: [
     MatButtonModule,
@@ -12,6 +14,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatSelectModule,
     MatInputModule,
     MatCheckboxModule,
+    MatIconModule,
   ],
   exports: [
     MatButtonModule,
@@ -19,6 +22,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatSelectModule,
     MatInputModule,
     MatCheckboxModule,
+    MatIconModule,
   ]
 })
 export class MaterialModule {

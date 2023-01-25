@@ -1,4 +1,20 @@
 <section class="wordSection">
   <p class="wordSection__text">{{ wordGenerated }}</p>
-  <button *ngIf="saveButton" mat-button class="wordSection__button">Save word</button>
+  <button
+    *ngIf="saveButton && !saved"
+    mat-button
+    class="saveButton saveButton_save"
+  >
+    Save word
+  </button>
+
+  <div
+    *ngIf="saved"
+    class="savedInfo"
+  >
+    <mat-icon>
+      check_circle
+    </mat-icon>
+    <p>Saved</p>
+  </div>
 </section>

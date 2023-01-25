@@ -4,6 +4,7 @@ import { Subject, Subscription } from "rxjs";
 import { PossibleLetters, TextStyle } from "src/app/shared/models/conditions-enums.model";
 import { NamingFilterDataService } from "src/app/shared/services/naming-filter-data.service";
 import { FilterMethodService } from "src/app/shared/services/filter-method.service";
+import { Titles } from "src/app/shared/models/titles-enums.model";
 
 @Component({
   selector: 'app-naming',
@@ -11,6 +12,7 @@ import { FilterMethodService } from "src/app/shared/services/filter-method.servi
   styleUrls: ['./naming-component.sass'],
 })
 export class NamingComponent implements OnInit, OnDestroy {
+  public title = Titles.naming;
   public form!: FormGroup;
   public wordGenerated: string = '---';
 

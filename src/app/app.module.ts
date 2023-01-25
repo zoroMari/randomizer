@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { SavedListModule } from './pages/saved-list/saved-list.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
     MaterialModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    SavedListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
