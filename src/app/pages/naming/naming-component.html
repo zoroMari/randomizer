@@ -1,10 +1,13 @@
 <app-title title="Naming"></app-title>
 
-<form [formGroup]="form">
+<form [formGroup]="form" (submit)="handleGenerateWord()">
   <div class="formLine formLine_1">
     <mat-form-field appearance="outline">
       <mat-label>Word length</mat-label>
       <input matInput formControlName="length" type="number" min="1">
+      <mat-error *ngIf="form.controls['length'].invalid">
+        Increase your word length!
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -12,7 +15,7 @@
       <mat-select formControlName="style">
         <mat-option
           *ngFor="let style of styleList"
-          value="style"
+          [value]="style"
         >
           {{ style }}
         </mat-option>
@@ -22,18 +25,44 @@
     <mat-form-field appearance="outline">
       <mat-label>Possible letters</mat-label>
       <mat-select
-        formControlName="letters"
+        formControlName="letterCondition"
+      >
+        <mat-option
+          *ngFor="let cond of letterConditionsAll"
+          [value]="cond"
+        >
+          {{ cond }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Selected letters</mat-label>
+      <mat-select
+        formControlName="lettersSelected"
         multiple
       >
         <mat-option
           *ngFor="let letter of letterList"
-          value="letter"
+          [value]="letter"
         >
           {{ letter }}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="form.controls['lettersSelected'].hasError('required') && !possibleLettersDisable">
+        You didn't select any letter!
+      </mat-error>
     </mat-form-field>
   </div>
+
+  <section class="checkboxLine">
+    <mat-checkbox
+      class="checkbox"
+      formControlName="identicalLetters"
+    >
+      Don't show words with two identical letters next to each other
+    </mat-checkbox>
+  </section>
 
   <div class="moreConditions">
     <p class="title">Add more conditions if needed:</p>
@@ -66,4 +95,8 @@
   </button>
 </form>
 
-<app-word-generated></app-word-generated>
+<app-word-generated
+  [wordGenerated]="wordGenerated"
+  [saveButton]="wordGenerated !== '---'"
+>
+</app-word-generated>

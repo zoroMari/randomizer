@@ -1,41 +1,67 @@
-@import '../../shared/styles/fonts'
-@import '../../shared/styles/spacing'
-@import '../../shared/styles/colors'
-@import '../../shared/styles/variables'
+@import 'fonts'
+@import 'spacing'
+@import 'colors'
+@import 'variables'
 
 
-form
+:host
+  height: 100%
+  width: 100%
   display: flex
   flex-direction: column
-  align-items: center
-  padding: $regular-spacing 0px 0px 0px
 
-  .formLine
-    display: flex
-    width: 100%
+  @media screen and (max-width: 1024px)
+    overflow-y: scroll
+    scroll-behavior: smooth
 
-    mat-form-field
-      width: 100%
-
-      &:not(:last-of-type)
-        margin-right: $medium-spacing
-
-  .moreConditions
+  form
     display: flex
     width: 100%
     flex-direction: column
-    margin-top: $large-spacing
+    align-items: center
+    padding: $regular-spacing 0px 0px 0px
 
-    .title
-      font-size: $regular-medium-font
-      margin-bottom: $medium-spacing
-      color: $accent-color
+    .formLine
       display: flex
       width: 100%
 
-  .sybmitButton
-    @include button-text
-    margin: $regular-spacing 0px $large-spacing 0px
+      @media screen and (max-width: 1024px)
+        flex-wrap: wrap
 
+      mat-form-field
+        width: 100%
 
+        &:not(:last-of-type)
+          margin-right: $medium-spacing
 
+          @media screen and (max-width: 1024px)
+            margin-right: 0
+
+    .checkboxLine
+      display: flex
+      width: 100%
+
+      .checkbox
+        color: $black-color
+
+    .moreConditions
+      display: flex
+      width: 100%
+      flex-direction: column
+      margin-top: $large-spacing
+
+      .title
+        font-size: $regular-medium-font
+        margin-bottom: $medium-spacing
+        color: $accent-color
+        display: flex
+        width: 100%
+
+    .sybmitButton
+      @include button-text
+      margin: $regular-spacing 0px $large-spacing 0px
+
+  app-word-generated
+    height: 100%
+    min-height: 240px
+    margin-bottom: $large-spacing

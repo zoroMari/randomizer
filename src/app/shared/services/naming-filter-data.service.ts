@@ -1,0 +1,63 @@
+import { Injectable } from "@angular/core";
+import { PossibleLetters, TextStyle } from "../models/conditions-enums.model";
+
+@Injectable({
+  providedIn: 'root',
+})
+export class NamingFilterDataService {
+  private _letterConditions: string[] = [
+    PossibleLetters.all,
+    PossibleLetters.vowels,
+    PossibleLetters.consonants,
+    PossibleLetters.select,
+  ]
+
+  // private _letterList: string[] = [
+  //   'A',
+  //   'B',
+  //   'C',
+  //   'D',
+  //   'E',
+  //   'F',
+  //   'G',
+  //   'H',
+  //   'I',
+  //   'J',
+  //   'K',
+  //   'L',
+  //   'M',
+  //   'N',
+  //   'O',
+  //   'P',
+  //   'Q',
+  //   'R',
+  //   'S',
+  //   'T',
+  //   'U',
+  //   'V',
+  //   'W',
+  //   'X',
+  //   'Y',
+  //   'Z',
+  // ];
+
+  private _letterList: string = 'abcdefghijklmnopqrstuvwxyz';
+
+  private _textStyle: string[] =[
+    TextStyle.upper,
+    TextStyle.lower,
+    TextStyle.cap,
+  ]
+
+  get letterConditions() {
+    return this._letterConditions;
+  }
+
+  get letterList() {
+    return this._letterList;
+  }
+
+  get textStyle() {
+    return this._textStyle;
+  }
+}

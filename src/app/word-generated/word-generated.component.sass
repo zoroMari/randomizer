@@ -1,9 +1,10 @@
-@import '../shared/styles/fonts'
-@import '../shared/styles/spacing'
-@import '../shared/styles/colors'
+@import 'fonts'
+@import 'spacing'
+@import 'colors'
 
 .wordSection
   display: flex
+  flex-direction: column
   justify-content: center
   align-items: center
   width: 100%
@@ -15,3 +16,7 @@
   .wordSection__text
     font-size: $large-font
     color: $black-color
+
+  .wordSection__button
+    color: $success-color
+    margin-top: $regular-spacing
