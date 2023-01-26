@@ -16,6 +16,7 @@ export class NamingComponent implements OnInit, OnDestroy {
   public title = Titles.naming;
   public form!: FormGroup;
   public wordGenerated: string = '---';
+  public saved = false;
 
   public letterConditionsAll!: string[];
   public letterList!: string[];
@@ -100,6 +101,7 @@ export class NamingComponent implements OnInit, OnDestroy {
   }
 
   public handleGenerateWord() {
+    this.saved = false;
     const options = this._getValuesFromForm();
     const start = [...options.start];
     const end = [...options.ends];
@@ -174,6 +176,7 @@ export class NamingComponent implements OnInit, OnDestroy {
   }
 
   public handleSaveWord() {
+    this.saved = true;
     this._savedService.saveWord(this.wordGenerated, this.title);
   }
 

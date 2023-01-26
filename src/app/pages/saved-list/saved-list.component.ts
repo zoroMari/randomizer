@@ -11,13 +11,14 @@ import { SavedService } from './saved-list.service';
 export class SavedListComponent implements OnInit {
   constructor(private _savedService: SavedService, private _route: ActivatedRoute) { }
 
-  public title = Titles.saved;
+  public title: string = Titles.saved;
   public savedList!: string[];
   public noSaved: boolean = false;
 
   ngOnInit(): void {
     this._route.params.subscribe(
       (param: Params) => {
+        this.title = `${Titles.saved} (${param['title']})`;
         this._savedService.fetchSavedList(param['title']);
         this.savedList = this._savedService.savedList;
       }
