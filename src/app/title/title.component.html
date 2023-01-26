@@ -1,7 +1,7 @@
 <section class="title">
   <div class="title__content">
-    <h1>{{ title }}</h1>
-    <a href="" *ngIf="savedList">Saved list</a>
+    <h1>{{ title[0].toUpperCase() + title.slice(1) }}</h1>
+    <ng-content></ng-content>
   </div>
 
   <div class="title__line"></div>

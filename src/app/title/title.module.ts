@@ -1,5 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
 import { TitleComponent } from "./title.component";
 
 @NgModule({
@@ -8,6 +9,7 @@ import { TitleComponent } from "./title.component";
   ],
   imports: [
     CommonModule,
+    RouterModule,
   ],
   exports: [
     TitleComponent,

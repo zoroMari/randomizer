@@ -4,6 +4,8 @@ import { Subject, Subscription } from "rxjs";
 import { PossibleLetters, TextStyle } from "src/app/shared/models/conditions-enums.model";
 import { NamingFilterDataService } from "src/app/shared/services/naming-filter-data.service";
 import { FilterMethodService } from "src/app/shared/services/filter-method.service";
+import { Titles } from "src/app/shared/models/titles-enums.model";
+import { SavedService } from "../saved-list/saved-list.service";
 
 @Component({
   selector: 'app-naming',
@@ -11,8 +13,10 @@ import { FilterMethodService } from "src/app/shared/services/filter-method.servi
   styleUrls: ['./naming-component.sass'],
 })
 export class NamingComponent implements OnInit, OnDestroy {
+  public title = Titles.naming;
   public form!: FormGroup;
   public wordGenerated: string = '---';
+  public saved = false;
 
   public letterConditionsAll!: string[];
   public letterList!: string[];
@@ -26,11 +30,13 @@ export class NamingComponent implements OnInit, OnDestroy {
   constructor(
     private _filterDataService: NamingFilterDataService,
     private _filterMethodService: FilterMethodService,
+    private _savedService: SavedService,
   ) {}
 
   ngOnInit() {
     this._getFormOptions();
     this._formInitialization();
+    this._savedService.fetchSavedList(this.title);
 
     this._sub = this.form.controls['letterCondition'].valueChanges.subscribe(
       (value: PossibleLetters) => {
@@ -95,6 +101,7 @@ export class NamingComponent implements OnInit, OnDestroy {
   }
 
   public handleGenerateWord() {
+    this.saved = false;
     const options = this._getValuesFromForm();
     const start = [...options.start];
     const end = [...options.ends];
@@ -166,6 +173,11 @@ export class NamingComponent implements OnInit, OnDestroy {
 
     const newWord = [...start, ...mediumPart, ...end];
     this.wordGenerated = this._filterMethodService.addStyleToWord(newWord.join(''), options.style);
+  }
+
+  public handleSaveWord() {
+    this.saved = true;
+    this._savedService.saveWord(this.wordGenerated, this.title);
   }
 
   private _getValuesFromForm() {

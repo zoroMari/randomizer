@@ -7,7 +7,6 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TitleComponent implements OnInit {
   @Input() title: string = 'Default';
-  @Input() savedList: boolean = true;
 
   constructor() { }
 
