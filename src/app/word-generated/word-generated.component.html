@@ -4,11 +4,12 @@
     *ngIf="saveButton && !saved"
     mat-button
     class="saveButton saveButton_save"
+    (click)="handleSaveWord()"
   >
     Save word
   </button>
 
-  <div
+  <!-- <div
     *ngIf="saved"
     class="savedInfo"
   >
@@ -16,5 +17,5 @@
       check_circle
     </mat-icon>
     <p>Saved</p>
-  </div>
+  </div> -->
 </section>

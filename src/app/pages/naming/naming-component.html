@@ -1,4 +1,6 @@
-<app-title [title]="title"></app-title>
+<app-title [title]="title">
+  <a [routerLink]="['/saved', title]">Saved list</a>
+</app-title>
 
 <form [formGroup]="form" (submit)="handleGenerateWord()">
   <div class="formLine formLine_1">
@@ -98,5 +100,6 @@
 <app-word-generated
   [wordGenerated]="wordGenerated"
   [saveButton]="wordGenerated !== '---'"
+  (onSaveWord)="handleSaveWord()"
 >
 </app-word-generated>

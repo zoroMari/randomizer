@@ -1,1 +1,24 @@
-<p>saved-list works!</p>
+<app-title [title]="title">
+  <button
+    mat-button
+    color="warn"
+    (click)="handleDeleteAllWords()"
+    [disabled]="noSaved"
+  >
+    Delete all words
+  </button>
+</app-title>
+
+<section class="savedWords" *ngFor="let word of savedList; let i = index">
+  <div class="savedWord">
+    <p>{{ i + 1 }}. {{ word }}</p>
+    <button mat-icon-button color="warn" (click)="handleDeleteWord(word)">
+      <mat-icon>
+        delete
+      </mat-icon>
+    </button>
+  </div>
+</section>
+
+<p class="noSaved" *ngIf="noSaved">No word saved</p>
+

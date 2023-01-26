@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-word-generated',
@@ -8,11 +8,16 @@ import { Component, Input, OnInit } from '@angular/core';
 export class WordGeneratedComponent implements OnInit {
   @Input() wordGenerated: string = '---';
   @Input() saveButton: boolean = false;
-  @Input() saved: boolean = true;
+  @Input() saved: boolean = false;
+  @Output() onSaveWord = new EventEmitter<null>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  public handleSaveWord() {
+    this.onSaveWord.emit();
   }
 
 }
