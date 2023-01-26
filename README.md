@@ -1,27 +1,15 @@
 # Randomizer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.5.
+This is a special application that will help you in your business and daily life.
 
-## Development server
+You can use it to create your business name with all the necessary conditions for it (see Naming section).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+You can also use it for fun in various games where you need random names / numbers etc.
 
-## Code scaffolding
+In the Custom section, you can also create your own list of special items (names, phrases, numbers, whatever) and then get each of them randomly.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## More possibilities:
 
-## Build
+For each section, you can save all randomized words to special lists for the future.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Download lists on your computer in .txt format.
