@@ -1,12 +1,26 @@
 <app-title [title]="title">
-  <button
-    mat-button
-    color="warn"
-    (click)="handleDeleteAllWords()"
-    [disabled]="noSaved"
-  >
-    Delete all words
-  </button>
+  <div class="buttons">
+    <button
+      class="download"
+      mat-button
+      color="primary"
+      [disabled]="noSaved"
+      (click)="onDownload()"
+    >
+      Download list
+    </button>
+
+    <button
+      class="delete"
+      mat-button
+      color="warn"
+      (click)="handleDeleteAllWords()"
+      [disabled]="noSaved"
+    >
+      Delete all words
+    </button>
+  </div>
+
 </app-title>
 
 <section class="savedWords" *ngFor="let word of savedList; let i = index">
