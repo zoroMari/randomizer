@@ -6,6 +6,7 @@ import { NamingFilterDataService } from "src/app/shared/services/naming-filter-d
 import { FilterMethodService } from "src/app/shared/services/filter-method.service";
 import { Titles } from "src/app/shared/models/titles-enums.model";
 import { SavedService } from "../saved-list/saved-list.service";
+import { IArgsForGenerateFunction, NamingSevice } from "./naming.service";
 
 @Component({
   selector: 'app-naming',
@@ -31,6 +32,7 @@ export class NamingComponent implements OnInit, OnDestroy {
     private _filterDataService: NamingFilterDataService,
     private _filterMethodService: FilterMethodService,
     private _savedService: SavedService,
+    private _namingService: NamingSevice,
   ) {}
 
   ngOnInit() {
@@ -102,77 +104,18 @@ export class NamingComponent implements OnInit, OnDestroy {
 
   public handleGenerateWord() {
     if (this.form.invalid) return;
-
     this.saved = false;
     const options = this._getValuesFromForm();
-    const start = [...options.start];
-    const end = [...options.ends];
-    const include = [...options.includes];
-    let mediumPart: string[] = [];
-    const word: string[] = [];
 
-    word.push(...options.start, ...options.includes, ...options.ends);
-
-    const maxGeneratedLength = options.length - word.length;
-    const generatedPart = [];
-    const lastIndexOfPartBeforeInclude = Math.floor(maxGeneratedLength / 2) - 1;
-    const firstIndexofPartAfterInclude = Math.floor(maxGeneratedLength / 2);
-
-    while (generatedPart.length < maxGeneratedLength) {
-      let letter: string = this._filterMethodService.getRandomItemFromArray(options.lettersSelected);
-
-      const canBeIdenticalLetters = options.identicalLetters === false || this.form.controls['identicalLetters'].disabled;
-      const firstGeneratedLetterEqualsStartLastLetterOrIncludeFirstLetter =
-        generatedPart.length === 0
-        && (
-          (
-            start.length > 0
-            && start[start.length - 1].toLowerCase() === letter.toLowerCase()
-          )
-          || (
-            include.length > 0 &&
-            include[0].toLowerCase() === letter.toLowerCase()
-          )
-        );
-      const newGeneratedLetterEqualsPreviousGeneratedLetter =
-        generatedPart.length > 0
-        && generatedPart[generatedPart.length - 1].toLowerCase() === letter.toLowerCase();
-      const lastLetterOfFirstGeneratedPartEqualsFirstIncludeLetter =
-        include.length > 0
-        && generatedPart.length === lastIndexOfPartBeforeInclude
-        && letter.toLowerCase() === include[0].toLowerCase();
-      const firstLetterOfSecondGeneratedPartEqualsLastIncludeLetter =
-        include.length > 0
-        && generatedPart.length === firstIndexofPartAfterInclude
-        && letter.toLowerCase() === include[include.length - 1].toLowerCase();
-      const lastLetterOfSecondGeneratedPartEqualsFirstEndLetter =
-        generatedPart.length === maxGeneratedLength - 1
-        && end.length > 0
-        && end[0].toLowerCase() === letter.toLowerCase();
-
-      if (canBeIdenticalLetters) generatedPart.push(letter);
-      else {
-        if (
-          firstGeneratedLetterEqualsStartLastLetterOrIncludeFirstLetter
-          || newGeneratedLetterEqualsPreviousGeneratedLetter
-          || lastLetterOfFirstGeneratedPartEqualsFirstIncludeLetter
-          || firstLetterOfSecondGeneratedPartEqualsLastIncludeLetter
-          || lastLetterOfSecondGeneratedPartEqualsFirstEndLetter
-        ) continue;
-
-        else {
-          generatedPart.push(letter);
-        }
-      }
+    const args: IArgsForGenerateFunction = {
+      form: this.form,
+      options: options,
+      startPart: options.start,
+      includePart: options.includes,
+      endPart: options.ends,
     }
 
-    const firstPart = generatedPart.slice(0, lastIndexOfPartBeforeInclude + 1);
-    const secondPart = generatedPart.slice(firstIndexofPartAfterInclude);
-
-    mediumPart = [...firstPart, ...include, ...secondPart];
-
-    const newWord = [...start, ...mediumPart, ...end];
-    this.wordGenerated = this._filterMethodService.addStyleToWord(newWord.join(''), options.style);
+    this.wordGenerated = this._namingService.generateWord(args);
   }
 
   public handleSaveWord() {
