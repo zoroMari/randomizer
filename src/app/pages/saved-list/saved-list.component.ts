@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Titles } from 'src/app/shared/models/titles-enums.model';
+import { DownloadService } from 'src/app/shared/services/download.service';
 import { SavedService } from './saved-list.service';
 
 @Component({
@@ -9,7 +10,11 @@ import { SavedService } from './saved-list.service';
   styleUrls: ['./saved-list.component.sass']
 })
 export class SavedListComponent implements OnInit {
-  constructor(private _savedService: SavedService, public route: ActivatedRoute) { }
+  constructor(
+    private _savedService: SavedService,
+    public route: ActivatedRoute,
+    private _downloadService: DownloadService,
+  ) { }
 
   public title: string = Titles.saved;
   public savedList!: string[];
@@ -34,8 +39,8 @@ export class SavedListComponent implements OnInit {
     )
   }
 
-  public onDownload(){
-    this._download(this.savedList, "saved-list.txt");
+  public handleDownloadList(){
+    this._downloadService.downloadFile(`${this.savedList}`, 'saved-list.txt', 'text/plain')
   }
 
   public handleDeleteWord(word: string): void {
@@ -44,14 +49,6 @@ export class SavedListComponent implements OnInit {
 
   public handleDeleteAllWords(): void {
     this._savedService.deleteAllWords();
-  }
-
-  private _download(content: string [], fileName: string) {
-    const a = document.createElement("a");
-    const file = new Blob([`${content}`], { type: 'text/plain' });
-    a.href = URL.createObjectURL(file);
-    a.download = fileName;
-    a.click();
   }
 
 }

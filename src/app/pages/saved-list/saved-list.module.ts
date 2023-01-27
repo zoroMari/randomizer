@@ -5,7 +5,9 @@ import { TitleModule } from "src/app/title/title.module";
 import { SavedListComponent } from "./saved-list.component";
 
 @NgModule({
-  declarations: [SavedListComponent],
+  declarations: [
+    SavedListComponent
+  ],
   imports: [
     SharedModules,
     TitleModule,
