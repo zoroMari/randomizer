@@ -34,13 +34,16 @@
         flex-wrap: wrap
 
       mat-form-field
-        width: 100%
+        width: 100% !important
 
         &:not(:last-of-type)
           margin-right: $medium-spacing
 
           @media screen and (max-width: 1024px)
             margin-right: 0
+
+      ::ng-deep .mat-form-field-infix
+        width: 100% !important
 
     .checkboxLine
       display: flex
