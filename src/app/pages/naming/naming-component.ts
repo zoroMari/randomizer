@@ -69,7 +69,7 @@ export class NamingComponent implements OnInit, OnDestroy {
     this._sub.add(
       this.form.controls['starts'].valueChanges.subscribe(
         (starts) => {
-          this.wordMinLength.next(starts.trim().length + this.form.controls['includes'].value.trim().length + this.form.controls['ends'].value.trim().length);
+          this.wordMinLength.next(starts.trim()?.length + this.form.controls['includes'].value.trim()?.length + this.form.controls['ends'].value.trim()?.length);
         }
       )
     )
@@ -101,15 +101,15 @@ export class NamingComponent implements OnInit, OnDestroy {
   }
 
   public handleGenerateWord() {
+    if (this.form.invalid) return;
+
     this.saved = false;
     const options = this._getValuesFromForm();
     const start = [...options.start];
     const end = [...options.ends];
-    const include = options.includes;
+    const include = [...options.includes];
     let mediumPart: string[] = [];
     const word: string[] = [];
-
-    if (this.form.invalid) return;
 
     word.push(...options.start, ...options.includes, ...options.ends);
 
@@ -121,7 +121,7 @@ export class NamingComponent implements OnInit, OnDestroy {
     while (generatedPart.length < maxGeneratedLength) {
       let letter: string = this._filterMethodService.getRandomItemFromArray(options.lettersSelected);
 
-      if (options.identicalLetters === false) generatedPart.push(letter);
+      if (options.identicalLetters === false || this.form.controls['identicalLetters'].disabled) generatedPart.push(letter);
       else {
         if (
           generatedPart.length === 0 &&
