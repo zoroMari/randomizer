@@ -5,7 +5,8 @@ import { FilterMethodService } from "src/app/shared/services/filter-method.servi
 
 
 export interface INamingFilterInputs {
-  length: number;
+  minLength: number;
+  maxLength: number;
   style: TextStyle;
   identicalLetters: boolean;
   lettersCondition: PossibleLetters;
@@ -38,12 +39,16 @@ export class NamingSevice {
 
     word.push(...start, ...include, ...end);
 
-    const maxGeneratedLength = options.length - word.length;
+    const minGeneratedLength = options.minLength - word.length;
+    const maxGeneratedLength = options.maxLength - word.length;
+
+    const generatedLength = this._filterMethodService.getRandomNumber(minGeneratedLength, maxGeneratedLength);
+
     const generatedPart = [];
     const lastIndexOfPartBeforeInclude = Math.floor(maxGeneratedLength / 2) - 1;
     const firstIndexofPartAfterInclude = Math.floor(maxGeneratedLength / 2);
 
-    while (generatedPart.length < maxGeneratedLength) {
+    while (generatedPart.length < generatedLength) {
       let letter: string = this._filterMethodService.getRandomItemFromArray(options.lettersSelected);
 
       const canBeIdenticalLetters = options.identicalLetters === false || form.controls['identicalLetters'].disabled;

@@ -4,12 +4,13 @@ import { TextStyle, PossibleLetters } from "../models/conditions-enums.model";
 @Injectable({providedIn: 'root'})
 export class FilterMethodService {
   public getRandomItemFromArray(array: string[]): string {
-    const index = this.getRandomNumber(array.length);
+    const index = this.getRandomNumber(0,array.length - 1);
     return array[index];
   }
 
-  public getRandomNumber(max: number): number {
-    return Math.floor(Math.random() * max);
+  public getRandomNumber(min: number, max: number) {
+    const rand = min + Math.random() * (max + 1 - min);
+    return Math.floor(rand);
   }
 
   public addStyleToWord(word: string, condition: TextStyle): string {

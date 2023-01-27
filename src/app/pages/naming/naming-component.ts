@@ -91,8 +91,10 @@ export class NamingComponent implements OnInit, OnDestroy {
     this._sub.add(
       this.wordMinLength.subscribe(
         (value) => {
-          this.form.controls['length'].setValidators([Validators.required, Validators.min(value)]);
-          this.form.controls['length'].updateValueAndValidity();
+          this.form.controls['minLength'].setValidators([Validators.required, Validators.min(value)]);
+          this.form.controls['minLength'].updateValueAndValidity();
+          this.form.controls['maxLength'].setValidators([Validators.required, Validators.min(value)]);
+          this.form.controls['maxLength'].updateValueAndValidity();
         }
       )
     )
@@ -124,7 +126,8 @@ export class NamingComponent implements OnInit, OnDestroy {
   }
 
   private _getValuesFromForm() {
-    const length: number = this.form.controls['length'].value;
+    const minLength: number = this.form.controls['minLength'].value;
+    const maxLength: number = this.form.controls['maxLength'].value;
     const style: TextStyle = this.form.controls['style'].value;
     const identicalLetters: boolean = this.form.controls['identicalLetters'].value;
     const lettersCondition: PossibleLetters = this.form.controls['letterCondition'].value;
@@ -136,7 +139,8 @@ export class NamingComponent implements OnInit, OnDestroy {
     const ends: string = this.form.controls['ends'].value.trim();
 
     return {
-      length,
+      minLength,
+      maxLength,
       style,
       lettersCondition,
       lettersSelected,
@@ -149,7 +153,8 @@ export class NamingComponent implements OnInit, OnDestroy {
 
   private _formInitialization() {
     this.form = new FormGroup({
-      length: new FormControl('5', [Validators.required]),
+      minLength: new FormControl('5', [Validators.required]),
+      maxLength: new FormControl('5', [Validators.required]),
       style: new FormControl(this.styleList[0], Validators.required),
       letterCondition: new FormControl(this.letterConditionsAll[0], Validators.required),
       lettersSelected: new FormControl({ value: [], disabled: this.possibleLettersDisable }, Validators.required),

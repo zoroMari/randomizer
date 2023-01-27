@@ -5,9 +5,17 @@
 <form [formGroup]="form" (submit)="handleGenerateWord()">
   <div class="formLine formLine_1">
     <mat-form-field appearance="outline">
-      <mat-label>Word length</mat-label>
-      <input matInput formControlName="length" type="number" min="1">
-      <mat-error *ngIf="form.controls['length'].invalid">
+      <mat-label>Min word length</mat-label>
+      <input matInput formControlName="minLength" type="number" min="1">
+      <mat-error *ngIf="form.controls['minLength'].invalid">
+        Increase your word length!
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Max word length</mat-label>
+      <input matInput formControlName="maxLength" type="number" min="1">
+      <mat-error *ngIf="form.controls['maxLength'].invalid">
         Increase your word length!
       </mat-error>
     </mat-form-field>
@@ -92,6 +100,7 @@
     type="submit"
     mat-raised-button
     color="accent"
+    [disabled]="form.invalid"
   >
     Generate word
   </button>
