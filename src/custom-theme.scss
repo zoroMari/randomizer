@@ -19,8 +19,10 @@ $randomizer-theme: mat.define-light-theme((
   typography: $randomizer-typography,
 ));
 
+// mat.$theme-ignore-duplication-warnings: true;
+
 @include mat.core($randomizer-typography);
-@include mat.all-component-themes($randomizer-theme);
+@include mat.all-component-colors($randomizer-theme);
 
 
 html, body { height: 100%; }

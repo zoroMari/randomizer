@@ -13,10 +13,11 @@
   @media screen and (max-width: 1024px)
     overflow-y: scroll
     scroll-behavior: smooth
+    padding-right: $medium-spacing
 
   a
     font-size: $medium-font
-    color: $success-color  
+    color: $success-color
 
   form
     display: flex
@@ -33,13 +34,16 @@
         flex-wrap: wrap
 
       mat-form-field
-        width: 100%
+        width: 100% !important
 
         &:not(:last-of-type)
           margin-right: $medium-spacing
 
           @media screen and (max-width: 1024px)
             margin-right: 0
+
+      ::ng-deep .mat-form-field-infix
+        width: 100% !important
 
     .checkboxLine
       display: flex
