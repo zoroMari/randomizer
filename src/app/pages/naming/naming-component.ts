@@ -38,6 +38,8 @@ export class NamingComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._getFormOptions();
     this._formInitialization();
+    this.form.controls['minLength'].markAsTouched();
+    this.form.controls['maxLength'].markAsTouched();
     this._savedService.fetchSavedList(this.title);
 
     this._sub = this.form.controls['letterCondition'].valueChanges.subscribe(
@@ -85,6 +87,15 @@ export class NamingComponent implements OnInit, OnDestroy {
     this._sub.add(
       this.form.controls['ends'].valueChanges.subscribe(
         (ends) => this.wordMinLength.next(ends.trim().length + this.form.controls['starts'].value.trim().length + this.form.controls['includes'].value.trim().length)
+      )
+    )
+
+    this._sub.add(
+      this.form.controls['minLength'].valueChanges.subscribe(
+        (min) => {
+          this.form.controls['maxLength'].setValidators([Validators.required, Validators.min(min)]);
+          this.form.controls['maxLength'].updateValueAndValidity();
+        }
       )
     )
 
