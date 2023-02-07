@@ -1,6 +1,7 @@
 <section class="title">
   <div class="title__content">
     <h1>{{ title[0].toUpperCase() + title.slice(1) }}</h1>
+    <a [routerLink]="['/saved', title]" *ngIf="isSavedList">Saved list</a>
     <ng-content></ng-content>
   </div>
 

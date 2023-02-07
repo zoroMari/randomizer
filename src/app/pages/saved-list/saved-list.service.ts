@@ -11,6 +11,11 @@ export class SavedService {
     return this._savedList;
   }
 
+  public set setSavedList(value: string[]) {
+    if (value.length > 0) return;
+    else this._savedList = value;
+  }
+
   public saveWord(word: string, nameOfList: string): void {
     this._savedList.push(word);
     this.savedListChanged.next(this._savedList);
@@ -26,6 +31,7 @@ export class SavedService {
       this._savedList = JSON.parse(localStorage.getItem(nameOfList) as string);
       this.savedListChanged.next(this._savedList);
     }
+
   }
 
   public deleteWord(word: string): void {

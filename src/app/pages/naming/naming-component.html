@@ -1,5 +1,4 @@
-<app-title [title]="title">
-  <a [routerLink]="['/saved', title]">Saved list</a>
+<app-title [title]="title" [isSavedList]="true">
 </app-title>
 
 <form [formGroup]="form" (submit)="handleGenerateWord()">
