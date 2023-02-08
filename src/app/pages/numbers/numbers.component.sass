@@ -1,0 +1,41 @@
+@import 'fonts'
+@import 'spacing'
+@import 'colors'
+@import 'variables'
+
+
+:host
+  height: 100%
+  width: 100%
+  display: flex
+  flex-direction: column
+
+  @media screen and (max-width: 1024px)
+    overflow-y: scroll
+    scroll-behavior: smooth
+    padding-right: $medium-spacing
+
+  form
+    display: flex
+    flex-direction: column
+    align-items: center
+
+    .formLine
+      display: flex
+      width: 100%
+      height: auto
+      align-items: center
+
+      @media screen and (max-width: 1024px)
+        flex-wrap: wrap
+
+      mat-form-field
+        margin-right: $medium-spacing
+
+        @media screen and (max-width: 1024px)
+          width: 100% !important
+          margin-right: 0
+
+      .checkbox
+        padding-bottom: 16px
+

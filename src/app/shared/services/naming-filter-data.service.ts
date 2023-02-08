@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
-import { PossibleLetters, TextStyle } from "../models/conditions-enums.model";
+import { LettersAvailable, TextStyle } from "../models/conditions-enums.model";
 
 @Injectable({
   providedIn: 'root',
 })
 export class NamingFilterDataService {
-  get letterConditions() {
-    return this._letterConditions;
+  get lettersAvailable() {
+    return this._lettersAvailable;
   }
 
   get letterList() {
@@ -17,11 +17,11 @@ export class NamingFilterDataService {
     return this._textStyle;
   }
 
-  private _letterConditions: string[] = [
-    PossibleLetters.all,
-    PossibleLetters.vowels,
-    PossibleLetters.consonants,
-    PossibleLetters.select,
+  private _lettersAvailable: string[] = [
+    LettersAvailable.all,
+    LettersAvailable.vowels,
+    LettersAvailable.consonants,
+    LettersAvailable.select,
   ]
 
   private _letterList: string = 'abcdefghijklmnopqrstuvwxyz';

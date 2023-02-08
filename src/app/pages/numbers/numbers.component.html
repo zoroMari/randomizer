@@ -1,2 +1,54 @@
 <app-title [title]="title" [isSavedList]=true></app-title>
 
+<form [formGroup]="form" >
+  <div class="formLine formLine_1">
+    <mat-form-field appearance="outline">
+      <mat-label>Minimum number</mat-label>
+      <input matInput formControlName="min" type="number">
+      <!-- <mat-error *ngIf="form.controls['maxLength'].invalid">
+        Increase your word length!
+      </mat-error> -->
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Maximum number</mat-label>
+      <input matInput formControlName="max" type="number">
+      <!-- <mat-error>
+        Increase your word length!
+      </mat-error> -->
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Available numbers</mat-label>
+      <mat-select
+        formControlName="availableNum"
+      >
+        <mat-option
+          *ngFor="let num of numAvailable"
+          [value]="num"
+        >
+          {{ num }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="checkbox">
+      <mat-checkbox
+        formControlName="prime"
+      >
+        Show only prime numbers
+      </mat-checkbox>
+    </div>
+  </div>
+
+  <app-generate-button
+    buttonName='Generate number'
+    [isDisabled]="form.invalid"
+  >
+  </app-generate-button>
+
+</form>
+
+<app-word-generated></app-word-generated>
+
+

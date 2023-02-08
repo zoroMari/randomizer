@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { PossibleLetters, TextStyle } from "src/app/shared/models/conditions-enums.model";
+import { LettersAvailable, TextStyle } from "src/app/shared/models/conditions-enums.model";
 import { FilterMethodService } from "src/app/shared/services/filter-method.service";
 
 
@@ -9,7 +9,7 @@ export interface INamingFilterInputs {
   maxLength: number;
   style: TextStyle;
   identicalLetters: boolean;
-  lettersCondition: PossibleLetters;
+  lettersAvailable: LettersAvailable;
   lettersSelected: string[];
   start: string;
   includes: string;

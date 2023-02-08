@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { SharedModules } from "src/app/shared/modules/shared-modules.module";
-import { TitleModule } from "src/app/title/title.module";
+import { TitleModule } from "src/app/shared/components/title/title.module";
 import { SavedListComponent } from "./saved-list.component";
 
 @NgModule({
