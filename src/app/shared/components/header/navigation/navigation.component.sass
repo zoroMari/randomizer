@@ -1,5 +1,6 @@
 @import 'spacing'
 @import 'colors'
+@import 'fonts'
 
 .menu
   width: 100%
@@ -14,6 +15,24 @@
     &.active
       color: $primary-main-color
       font-weight: 500
+
+  .menuSmall
+    display: none
+    align-items: center
+
+    .logo
+      display: flex
+      align-items: center
+      padding-top: 2px
+      margin-left: $extra-small-spacing
+
+      p
+        margin-bottom: 0
+        color: $primary-main-color
+        font-size: $regular-medium-font
+
+    @media screen and (max-width: 600px)
+      display: flex
 
   &__list
     padding-left: 0
@@ -31,4 +50,7 @@
 
     li:nth-of-type(1)
       color: $primary-main-color
+
+    @media screen and (max-width: 600px)
+      display: none
 

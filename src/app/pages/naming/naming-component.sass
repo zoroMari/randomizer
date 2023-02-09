@@ -48,9 +48,14 @@
     .checkboxLine
       display: flex
       width: 100%
+      flex-wrap: wrap
 
       .checkbox
         color: $black-color
+        width: 100%
+
+        ::ng-deep .mat-checkbox-label
+          white-space: pre-wrap !important
 
     .moreConditions
       display: flex
