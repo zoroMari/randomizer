@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { SavedListModule } from './pages/saved-list/saved-list.module';
 import { NumbersModule } from './pages/numbers/numbers.module';
+import { SidenavModule } from './shared/components/header/sidenav/sidenav.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { NumbersModule } from './pages/numbers/numbers.module';
     AppRoutingModule,
     SavedListModule,
     NumbersModule,
+    SidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

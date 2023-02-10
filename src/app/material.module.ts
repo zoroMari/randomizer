@@ -7,6 +7,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from '@angular/material/icon';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import {MatRadioModule} from '@angular/material/radio';
     MatCheckboxModule,
     MatIconModule,
     MatRadioModule,
+    MatSidenavModule,
   ],
   exports: [
     MatButtonModule,
@@ -26,6 +28,7 @@ import {MatRadioModule} from '@angular/material/radio';
     MatCheckboxModule,
     MatIconModule,
     MatRadioModule,
+    MatSidenavModule,
   ]
 })
 export class MaterialModule {

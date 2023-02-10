@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Route, RouterModule } from "@angular/router";
-import { NamingComponent } from "./pages/naming/naming-component";
+import { NamingComponent } from "./pages/naming/naming.component";
 
 const routes: Route[] = [
   {

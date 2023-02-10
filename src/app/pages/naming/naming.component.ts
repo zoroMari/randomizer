@@ -10,8 +10,8 @@ import { IArgsForGenerateFunction, NamingSevice } from "./naming.service";
 
 @Component({
   selector: 'app-naming',
-  templateUrl: './naming-component.html',
-  styleUrls: ['./naming-component.sass'],
+  templateUrl: './naming.component.html',
+  styleUrls: ['./naming.component.sass'],
 })
 export class NamingComponent implements OnInit, OnDestroy {
   public title = Titles.naming;
