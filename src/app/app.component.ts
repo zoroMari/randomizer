@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'randomizer';
+  public isOpen = false;
+
+  public handleCloseMenu(isClosed: boolean) {
+    this.isOpen = !isClosed;
+  }
+
+  public handleOpenMenu(isOpen: boolean) {
+    this.isOpen = isOpen;
+  }
 }

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 
 @Component({
   selector: 'app-sidenav',
@@ -6,5 +6,9 @@ import { Component } from "@angular/core";
   styleUrls: ['./sidenav.component.sass'],
 })
 export class SidenavComponent {
+  @Output() onCloseMenu = new EventEmitter<boolean>();
 
+  public handleCloseMenu() {
+    this.onCloseMenu.emit(true);
+  }
 }

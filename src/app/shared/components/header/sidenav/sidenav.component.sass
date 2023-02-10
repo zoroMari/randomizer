@@ -1,0 +1,29 @@
+@import 'spacing'
+@import 'fonts'
+@import 'colors'
+
+mat-nav-list
+  padding-top: 0px
+
+  .title
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: $small-spacing
+    padding-right: $regular-spacing
+    background-color: $primary-background-color
+
+    .logo
+      margin-left: $regular-spacing
+      color: $primary-main-color
+      font-size: $regular-medium-font
+
+  & > a
+    padding-left: $small-spacing
+
+  .listInside
+    display: flex
+    align-items: center
+
+    img
+      margin-left: $regular-spacing
