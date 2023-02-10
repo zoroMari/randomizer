@@ -29,12 +29,20 @@ export class NumbersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._savedService.fetchSavedList(this.title);
     this._formInitialization();
+    this.form.controls['max'].markAsTouched();
 
-
+    this._sub = this.form.controls['min'].valueChanges.subscribe(
+      (value) => {
+        if (value >= this.form.controls['max'].value) {
+          this.form.controls['max'].setValidators([Validators.required, Validators.min(value + 1)]);
+          this.form.controls['max'].updateValueAndValidity();
+        }
+      }
+    )
   }
 
   ngOnDestroy(): void {
-    // this._sub.unsubscribe();
+    this._sub.unsubscribe();
     this._savedService.setSavedListEmpty = [];
   }
 
@@ -43,6 +51,8 @@ export class NumbersComponent implements OnInit, OnDestroy {
     this.saved = false;
     const options = this._getValuesFromForm();
     this.generatedNum = '5';
+
+
   }
 
   public handleSaveNumber() {
