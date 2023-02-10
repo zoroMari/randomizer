@@ -113,7 +113,7 @@ export class NamingComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._sub.unsubscribe();
-    this._savedService.setSavedList = [];
+    this._savedService.setSavedListEmpty = [];
   }
 
   public handleGenerateWord() {

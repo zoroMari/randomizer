@@ -40,7 +40,7 @@ export class SavedListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._savedService.setSavedList = [];
+    this._savedService.setSavedListEmpty = [];
   }
 
   public handleDownloadList(){

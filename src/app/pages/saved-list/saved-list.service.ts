@@ -11,7 +11,7 @@ export class SavedService {
     return this._savedList;
   }
 
-  public set setSavedList(value: string[]) {
+  public set setSavedListEmpty(value: string[]) {
     if (value.length > 0) return;
     else this._savedList = value;
   }

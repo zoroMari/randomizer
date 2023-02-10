@@ -1,12 +1,12 @@
 <section class="wordSection">
-  <p class="wordSection__text">{{ wordGenerated }}</p>
+  <p class="wordSection__text">{{ elemGenerated }}</p>
   <button
-    *ngIf="saveButton && !saved"
+    *ngIf="elemGenerated !== '---' && !saved"
     mat-button
     class="saveButton saveButton_save"
     (click)="handleSaveWord()"
   >
-    Save word
+    Save
   </button>
 
   <div

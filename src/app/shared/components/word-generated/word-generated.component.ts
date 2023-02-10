@@ -6,10 +6,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./word-generated.component.sass']
 })
 export class WordGeneratedComponent implements OnInit {
-  @Input() wordGenerated: string = '---';
-  @Input() saveButton: boolean = false;
+  @Input() elemGenerated: string = '---';
   @Input() saved: boolean = false;
-  @Output() onSaveWord = new EventEmitter<null>();
+  @Output() onSave = new EventEmitter<null>();
 
   constructor() { }
 
@@ -17,7 +16,7 @@ export class WordGeneratedComponent implements OnInit {
   }
 
   public handleSaveWord() {
-    this.onSaveWord.emit();
+    this.onSave.emit();
   }
 
 }

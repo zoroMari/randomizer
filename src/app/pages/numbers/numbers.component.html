@@ -1,6 +1,6 @@
 <app-title [title]="title" [isSavedList]=true></app-title>
 
-<form [formGroup]="form" >
+<form [formGroup]="form" (submit)="handleGenerateNumber()">
   <div class="formLine formLine_1">
     <mat-form-field appearance="outline">
       <mat-label>Minimum number</mat-label>
@@ -49,6 +49,11 @@
 
 </form>
 
-<app-word-generated></app-word-generated>
+<app-word-generated
+  [saved]="saved"
+  [elemGenerated]="generatedNum"
+  (onSave)="handleSaveNumber()"
+>
+</app-word-generated>
 
 

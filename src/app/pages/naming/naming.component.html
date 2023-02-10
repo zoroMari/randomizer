@@ -102,9 +102,9 @@
 </form>
 
 <app-word-generated
-  [wordGenerated]="wordGenerated"
-  [saveButton]="wordGenerated !== '---'"
-  (onSaveWord)="handleSaveWord()"
+  [elemGenerated]="wordGenerated"
+  (onSave)="handleSaveWord()"
   [saved]="saved"
 >
 </app-word-generated>
+
