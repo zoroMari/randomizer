@@ -1,0 +1,48 @@
+<app-title [title]="title" [isSavedList]=true></app-title>
+
+<form [formGroup]="form" (submit)="handleGenerateNumber()">
+  <div class="formLine formLine_1">
+    <mat-form-field appearance="outline">
+      <mat-label>Minimum number</mat-label>
+      <input matInput formControlName="min" type="number">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Maximum number</mat-label>
+      <input matInput formControlName="max" type="number">
+      <mat-error>
+        Increase your maximum number!
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Available numbers</mat-label>
+      <mat-select
+        formControlName="availableNum"
+      >
+        <mat-option
+          *ngFor="let num of numAvailable"
+          [value]="num"
+        >
+          {{ num }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <app-generate-button
+    buttonName='Generate number'
+    [isDisabled]="form.invalid"
+  >
+  </app-generate-button>
+
+</form>
+
+<app-word-generated
+  [saved]="saved"
+  [elemGenerated]="generatedNum"
+  (onSave)="handleSaveNumber()"
+>
+</app-word-generated>
+
+

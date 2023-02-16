@@ -2,31 +2,35 @@
 @import 'spacing'
 @import 'colors'
 
-.about
-  display: flex
-  flex-direction: column
+:host
+  @media screen and (max-width: 1024px)
+    padding: 0px 24px
 
-  .text
-    font-size: $regular-font
-    line-height: 200%
-    margin-bottom: $medium-spacing
-
-  a
-    color: $primary-main-color
-    font-weight: 500
-    font-style: italic
-
-  .morePosibilities
+  .about
     display: flex
     flex-direction: column
-    margin-top: $medium-spacing
 
-    .morePosibilities__title
-      font-size: $medium-font
-      color: $accent-color
+    .text
+      font-size: $regular-font
+      line-height: 200%
       margin-bottom: $medium-spacing
 
-    .morePosibilities__text
-      // margin-bottom: $small-spacing
+    a
+      color: $primary-main-color
+      font-weight: 500
+      font-style: italic
+
+    .morePosibilities
+      display: flex
+      flex-direction: column
+      margin-top: $medium-spacing
+
+      .morePosibilities__title
+        font-size: $medium-font
+        color: $accent-color
+        margin-bottom: $medium-spacing
+
+      .morePosibilities__text
+        // margin-bottom: $small-spacing
 
 

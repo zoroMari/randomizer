@@ -1,0 +1,39 @@
+<mat-nav-list>
+  <div class="title">
+    <div class="logo"><a routerLink="/about">Randomizer</a></div>
+
+    <button mat-icon-button color="primary" (click)="handleCloseMenu()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <a
+    mat-list-item
+    routerLink="/naming"
+    routerLinkActive="active"
+  >
+    Naming
+  </a>
+
+  <a
+    mat-list-item
+  >
+    Custom
+  </a>
+
+  <a
+    mat-list-item
+    routerLink="/numbers"
+    routerLinkActive="active"
+    >
+    Numbers
+  </a>
+
+  <!-- <a
+    mat-list-item
+    class="listInside"
+  >
+    Words
+    <img src="assets/arrow.svg" alt="arrow">
+  </a> -->
+</mat-nav-list>

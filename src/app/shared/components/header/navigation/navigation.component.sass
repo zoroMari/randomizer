@@ -1,0 +1,62 @@
+@import 'spacing'
+@import 'colors'
+@import 'fonts'
+
+.menu
+  width: 100%
+  padding: $medium-spacing 0px
+  display: flex
+  justify-content: space-between
+
+  @media screen and (max-width: 1024px)
+    padding: $medium-spacing 24px
+
+  @media screen and (max-width: 600px)
+    padding-left: $regular-spacing
+
+  a
+    text-decoration: none
+    color: $black-color
+
+    &.active
+      color: $primary-main-color
+      font-weight: 500
+
+  .menuSmall
+    display: none
+    align-items: center
+
+    .logo
+      display: flex
+      align-items: center
+      padding-top: 2px
+      margin-left: $extra-small-spacing
+
+      a
+        margin-bottom: 0
+        color: $primary-main-color
+        font-size: $regular-medium-font
+
+    @media screen and (max-width: 600px)
+      display: flex
+
+  &__list
+    padding-left: 0
+    display: flex
+
+    li
+      display: flex
+      align-items: center
+
+      img
+        margin-left: $extra-small-spacing
+
+    li:not(:last-of-type)
+      margin-right: $large-spacing
+
+    li:nth-of-type(1)
+      color: $primary-main-color
+
+    @media screen and (max-width: 600px)
+      display: none
+

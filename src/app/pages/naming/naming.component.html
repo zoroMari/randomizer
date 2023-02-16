@@ -1,5 +1,4 @@
-<app-title [title]="title">
-  <a [routerLink]="['/saved', title]">Saved list</a>
+<app-title [title]="title" [isSavedList]="true">
 </app-title>
 
 <form [formGroup]="form" (submit)="handleGenerateWord()">
@@ -35,10 +34,10 @@
     <mat-form-field appearance="outline">
       <mat-label>Available letters</mat-label>
       <mat-select
-        formControlName="letterCondition"
+        formControlName="lettersAvailable"
       >
         <mat-option
-          *ngFor="let cond of letterConditionsAll"
+          *ngFor="let cond of lettersAvailableAll"
           [value]="cond"
         >
           {{ cond }}
@@ -95,21 +94,17 @@
     </div>
   </div>
 
-  <button
-    class="sybmitButton"
-    type="submit"
-    mat-raised-button
-    color="accent"
-    [disabled]="form.invalid"
+  <app-generate-button
+    buttonName='Generate word'
+    [isDisabled]="form.invalid"
   >
-    Generate word
-  </button>
+  </app-generate-button>
 </form>
 
 <app-word-generated
-  [wordGenerated]="wordGenerated"
-  [saveButton]="wordGenerated !== '---'"
-  (onSaveWord)="handleSaveWord()"
+  [elemGenerated]="wordGenerated"
+  (onSave)="handleSaveWord()"
   [saved]="saved"
 >
 </app-word-generated>
+

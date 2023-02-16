@@ -4,10 +4,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 
 import { AppComponent } from './app.component';
-import { NavigationComponent } from './navigation/navigation.component';
+import { NavigationComponent } from './shared/components/header/navigation/navigation.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { SavedListModule } from './pages/saved-list/saved-list.module';
+import { NumbersModule } from './pages/numbers/numbers.module';
+import { SidenavModule } from './shared/components/header/sidenav/sidenav.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { SavedListModule } from './pages/saved-list/saved-list.module';
     ReactiveFormsModule,
     AppRoutingModule,
     SavedListModule,
+    NumbersModule,
+    SidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

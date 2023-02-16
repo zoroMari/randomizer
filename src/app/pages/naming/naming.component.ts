@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subject, Subscription } from "rxjs";
-import { PossibleLetters, TextStyle } from "src/app/shared/models/conditions-enums.model";
+import { LettersAvailable, TextStyle } from "src/app/shared/models/conditions-enums.model";
 import { NamingFilterDataService } from "src/app/shared/services/naming-filter-data.service";
 import { FilterMethodService } from "src/app/shared/services/filter-method.service";
 import { Titles } from "src/app/shared/models/titles-enums.model";
@@ -10,8 +10,8 @@ import { IArgsForGenerateFunction, NamingSevice } from "./naming.service";
 
 @Component({
   selector: 'app-naming',
-  templateUrl: './naming-component.html',
-  styleUrls: ['./naming-component.sass'],
+  templateUrl: './naming.component.html',
+  styleUrls: ['./naming.component.sass'],
 })
 export class NamingComponent implements OnInit, OnDestroy {
   public title = Titles.naming;
@@ -19,7 +19,7 @@ export class NamingComponent implements OnInit, OnDestroy {
   public wordGenerated: string = '---';
   public saved = false;
 
-  public letterConditionsAll!: string[];
+  public lettersAvailableAll!: string[];
   public letterList!: string[];
   public styleList!: string[];
   public possibleLettersDisable = true;
@@ -42,15 +42,15 @@ export class NamingComponent implements OnInit, OnDestroy {
     this.form.controls['maxLength'].markAsTouched();
     this._savedService.fetchSavedList(this.title);
 
-    this._sub = this.form.controls['letterCondition'].valueChanges.subscribe(
-      (value: PossibleLetters) => {
-        this.possibleLettersDisable = value !== PossibleLetters.select;
+    this._sub = this.form.controls['lettersAvailable'].valueChanges.subscribe(
+      (value: LettersAvailable) => {
+        this.possibleLettersDisable = value !== LettersAvailable.select;
         const letterSelectedField = this.form.controls['lettersSelected'];
         const lettersSelected: string[] = Array.from(this._filterMethodService.filterLetters(
           value, this._filterDataService.letterList, this.form.controls['lettersSelected'].value)
         );
 
-        if (value !== PossibleLetters.select) {
+        if (value !== LettersAvailable.select) {
           letterSelectedField.disable();
           letterSelectedField.setValue(lettersSelected);
         } else {
@@ -63,7 +63,7 @@ export class NamingComponent implements OnInit, OnDestroy {
     this._sub.add(
       this.form.controls['lettersSelected'].valueChanges.subscribe(
         (value) => {
-          if (this.form.controls['letterCondition'].value === PossibleLetters.select && value.length < 2) {
+          if (this.form.controls['lettersAvailable'].value === LettersAvailable.select && value.length < 2) {
             this.form.controls['identicalLetters'].disable();
           } else this.form.controls['identicalLetters'].enable();
         }
@@ -113,6 +113,7 @@ export class NamingComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._sub.unsubscribe();
+    this._savedService.setSavedListEmpty = [];
   }
 
   public handleGenerateWord() {
@@ -141,9 +142,9 @@ export class NamingComponent implements OnInit, OnDestroy {
     const maxLength: number = this.form.controls['maxLength'].value;
     const style: TextStyle = this.form.controls['style'].value;
     const identicalLetters: boolean = this.form.controls['identicalLetters'].value;
-    const lettersCondition: PossibleLetters = this.form.controls['letterCondition'].value;
+    const lettersAvailable: LettersAvailable = this.form.controls['lettersAvailable'].value;
     const lettersSelected: string[] = Array.from(this._filterMethodService.filterLetters(
-      lettersCondition, this._filterDataService.letterList, this.form.controls['lettersSelected'].value)
+      lettersAvailable, this._filterDataService.letterList, this.form.controls['lettersSelected'].value)
     );
     const start: string = this.form.controls['starts'].value.trim();
     const includes: string = this.form.controls['includes'].value.trim();
@@ -153,7 +154,7 @@ export class NamingComponent implements OnInit, OnDestroy {
       minLength,
       maxLength,
       style,
-      lettersCondition,
+      lettersAvailable,
       lettersSelected,
       identicalLetters,
       start,
@@ -167,7 +168,7 @@ export class NamingComponent implements OnInit, OnDestroy {
       minLength: new FormControl('5', [Validators.required]),
       maxLength: new FormControl('5', [Validators.required]),
       style: new FormControl(this.styleList[0], Validators.required),
-      letterCondition: new FormControl(this.letterConditionsAll[0], Validators.required),
+      lettersAvailable: new FormControl(this.lettersAvailableAll[0], Validators.required),
       lettersSelected: new FormControl({ value: [], disabled: this.possibleLettersDisable }, Validators.required),
       identicalLetters: new FormControl(false),
       starts: new FormControl(''),
@@ -177,7 +178,7 @@ export class NamingComponent implements OnInit, OnDestroy {
   }
 
   private _getFormOptions() {
-    this.letterConditionsAll = this._filterDataService.letterConditions;
+    this.lettersAvailableAll = this._filterDataService.lettersAvailable;
     this.letterList = Array.from(this._filterDataService.letterList.toUpperCase());
     this.styleList = this._filterDataService.textStyle;
   }

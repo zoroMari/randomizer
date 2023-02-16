@@ -1,6 +1,11 @@
 @import 'fonts'
 @import 'spacing'
 
-p
-  font-size: $regular-font
-  margin-bottom: $medium-spacing
+
+:host
+  @media screen and (max-width: 1024px)
+    padding: 0px 24px
+
+  p
+    font-size: $regular-font
+    margin-bottom: $medium-spacing

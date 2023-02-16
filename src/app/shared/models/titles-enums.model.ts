@@ -1,4 +1,5 @@
 export enum Titles {
   naming = 'naming',
-  saved = 'saved list'
+  numbers = 'numbers',
+  saved = 'saved list',
 }

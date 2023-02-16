@@ -1,4 +1,13 @@
 <nav class="menu">
+
+  <div class="menuSmall">
+    <button mat-icon-button color="primary" (click)="handleOpenMenu()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <div class="logo"><a routerLink="/about">Randomizer</a></div>
+  </div>
+
   <ul class="menu__list  menu__list_left">
     <li>
       <a routerLink="/naming" routerLinkActive="active">
@@ -13,17 +22,17 @@
     </li>
 
     <li>
-      <a>
+      <a routerLink="/numbers" routerLinkActive="active">
         Numbers
       </a>
     </li>
 
-    <li>
+    <!-- <li>
       <a>
         Words
         <img src="assets/arrow.svg" alt="arrow">
       </a>
-    </li>
+    </li> -->
 
     <!-- <li>
       <a>

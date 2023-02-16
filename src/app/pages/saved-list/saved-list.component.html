@@ -23,16 +23,20 @@
 
 </app-title>
 
-<section class="savedWords" *ngFor="let word of savedList; let i = index">
-  <div class="savedWord">
-    <p>{{ i + 1 }}. {{ word }}</p>
-    <button mat-icon-button color="warn" (click)="handleDeleteWord(word)">
-      <mat-icon>
-        delete
-      </mat-icon>
-    </button>
-  </div>
-</section>
 
-<p class="noSaved" *ngIf="noSaved">No word saved</p>
+<ul class="savedWords">
+  <li *ngFor="let word of savedList; let i = index">
+    <div  class="savedWord" >
+      <p>{{ word }}</p>
+
+      <button mat-icon-button color="warn" (click)="handleDeleteWord(word)">
+        <mat-icon>
+          delete
+        </mat-icon>
+      </button>
+    </div>
+  </li>
+</ul>
+
+<p class="noSaved" *ngIf="noSaved">No element saved</p>
 

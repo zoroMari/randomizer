@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { TextStyle, PossibleLetters } from "../models/conditions-enums.model";
+import { TextStyle, LettersAvailable } from "../models/conditions-enums.model";
 
 @Injectable({providedIn: 'root'})
 export class FilterMethodService {
@@ -29,21 +29,21 @@ export class FilterMethodService {
     }
   }
 
-  public filterLetters(possibleLettersCondition: PossibleLetters, allLetters: string, selectedLetters: string): string {
+  public filterLetters(possibleLettersCondition: LettersAvailable, allLetters: string, selectedLetters: string): string {
     switch (possibleLettersCondition) {
-      case PossibleLetters.all:
+      case LettersAvailable.all:
         return allLetters;
         break;
 
-      case PossibleLetters.consonants:
+      case LettersAvailable.consonants:
         return 'bcdfghjklmnpqrstvwxz';
         break;
 
-      case PossibleLetters.vowels:
+      case LettersAvailable.vowels:
         return 'aeiouy';
         break;
 
-      case PossibleLetters.select:
+      case LettersAvailable.select:
         return selectedLetters;
         break;
     }

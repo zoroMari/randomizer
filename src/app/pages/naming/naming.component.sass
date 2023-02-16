@@ -13,7 +13,7 @@
   @media screen and (max-width: 1024px)
     overflow-y: scroll
     scroll-behavior: smooth
-    padding-right: $medium-spacing
+    padding: 0px 24px
 
   a
     font-size: $medium-font
@@ -41,6 +41,7 @@
 
           @media screen and (max-width: 1024px)
             margin-right: 0
+            margin-bottom: $small-spacing
 
       ::ng-deep .mat-form-field-infix
         width: 100% !important
@@ -48,9 +49,14 @@
     .checkboxLine
       display: flex
       width: 100%
+      flex-wrap: wrap
 
       .checkbox
         color: $black-color
+        width: 100%
+
+        ::ng-deep .mat-checkbox-label
+          white-space: pre-wrap !important
 
     .moreConditions
       display: flex
@@ -64,12 +70,3 @@
         color: $accent-color
         display: flex
         width: 100%
-
-    .sybmitButton
-      @include button-text
-      margin: $regular-spacing 0px $large-spacing 0px
-
-  app-word-generated
-    height: 100%
-    min-height: 240px
-    margin-bottom: $large-spacing

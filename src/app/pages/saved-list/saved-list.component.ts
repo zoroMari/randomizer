@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Titles } from 'src/app/shared/models/titles-enums.model';
 import { DownloadService } from 'src/app/shared/services/download.service';
@@ -9,7 +9,7 @@ import { SavedService } from './saved-list.service';
   templateUrl: './saved-list.component.html',
   styleUrls: ['./saved-list.component.sass']
 })
-export class SavedListComponent implements OnInit {
+export class SavedListComponent implements OnInit, OnDestroy {
   constructor(
     private _savedService: SavedService,
     public route: ActivatedRoute,
@@ -37,6 +37,10 @@ export class SavedListComponent implements OnInit {
         this.savedList = this._savedService.savedList;
       }
     )
+  }
+
+  ngOnDestroy(): void {
+    this._savedService.setSavedListEmpty = [];
   }
 
   public handleDownloadList(){

@@ -1,6 +1,16 @@
-<app-navigation></app-navigation>
+<!-- <app-navigation></app-navigation> -->
+<mat-sidenav-container>
+  <mat-sidenav class="sidenav" [opened]="isOpen" role="navigation">
+   <app-sidenav (onCloseMenu)="handleCloseMenu($event)"></app-sidenav>
+  </mat-sidenav>
 
-<router-outlet></router-outlet>
+  <mat-sidenav-content class="content">
+    <app-navigation (onOpenMenu)="handleOpenMenu($event)"></app-navigation>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
 
 
 
