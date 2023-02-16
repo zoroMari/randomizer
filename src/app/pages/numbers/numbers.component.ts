@@ -3,7 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { NumbersAvailable } from 'src/app/shared/models/conditions-enums.model';
 import { Titles } from 'src/app/shared/models/titles-enums.model';
+import { FilterMethodService } from 'src/app/shared/services/filter-method.service';
 import { SavedService } from '../saved-list/saved-list.service';
+import { INumbersFilterInputs, NumberService } from './numbers.service';
 
 @Component({
   selector: 'app-numbers',
@@ -18,12 +20,15 @@ export class NumbersComponent implements OnInit, OnDestroy {
   public numAvailable: NumbersAvailable[] = [
     NumbersAvailable.all,
     NumbersAvailable.even,
-    NumbersAvailable.odd
+    NumbersAvailable.odd,
+    NumbersAvailable.prime,
   ];
   private _sub!: Subscription;
 
   constructor(
     private _savedService: SavedService,
+    private _filterMethodService: FilterMethodService,
+    private _numbersService: NumberService,
   ) { }
 
   ngOnInit(): void {
@@ -49,10 +54,10 @@ export class NumbersComponent implements OnInit, OnDestroy {
   public handleGenerateNumber() {
     if (this.form.invalid) return;
     this.saved = false;
-    const options = this._getValuesFromForm();
-    this.generatedNum = '5';
 
+    const options: INumbersFilterInputs = this._getValuesFromForm();
 
+    this.generatedNum = this._numbersService.handleGenerateNumber(options);
   }
 
   public handleSaveNumber() {
@@ -60,16 +65,14 @@ export class NumbersComponent implements OnInit, OnDestroy {
     this._savedService.saveWord(this.generatedNum, this.title);
   }
 
-  private _getValuesFromForm() {
+  private _getValuesFromForm() :INumbersFilterInputs {
     const min: number = this.form.controls['min'].value;
     const max: number = this.form.controls['max'].value;
     const availableNum: NumbersAvailable = this.form.controls['availableNum'].value;
-    const onlyPrime: boolean = this.form.controls['prime'].value;
     return {
       min,
       max,
       availableNum,
-      onlyPrime,
     }
   }
 
@@ -78,9 +81,6 @@ export class NumbersComponent implements OnInit, OnDestroy {
       min: new FormControl(0, Validators.required),
       max: new FormControl(100, Validators.required),
       availableNum: new FormControl(this.numAvailable[0]),
-      prime: new FormControl(false),
     })
   }
-
-
 }

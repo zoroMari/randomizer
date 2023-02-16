@@ -15,4 +15,5 @@ export enum NumbersAvailable {
   all = 'All numbers',
   odd = 'Only odd',
   even = 'Only even',
+  prime = 'Only prime',
 }
