@@ -45,7 +45,7 @@ export class CustomComponent implements OnInit {
   private _formInitialization() {
     this.form = new FormGroup({
       items: new FormControl('', Validators.required),
-      style: new FormControl('capitalize', Validators.required),
+      style: new FormControl('Capitalize', Validators.required),
     })
   }
 }
