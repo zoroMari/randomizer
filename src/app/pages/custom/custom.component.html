@@ -1,6 +1,13 @@
 <app-title [title]="title" [isSavedList]="true"></app-title>
 
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="getRandomItem()">
+  <mat-radio-group class="style" formControlName="style">
+    <mat-label>Select style: </mat-label>
+    <mat-radio-button [value]="style.cap">{{ style.cap }}</mat-radio-button>
+    <mat-radio-button [value]="style.lower">{{ style.lower }}</mat-radio-button>
+    <mat-radio-button [value]="style.upper">{{ style.upper }}</mat-radio-button>
+  </mat-radio-group>
+
   <mat-form-field appearance="outline" class="textArea">
     <mat-label>Enter a comma separated list of items (Ex: apple, orange, lemon)</mat-label>
     <textarea matInput formControlName="items"></textarea>
@@ -14,4 +21,9 @@
 </form>
 
 
-<app-word-generated></app-word-generated>
+<app-word-generated
+  [elemGenerated]="randomItem"
+  (onSave)="handleSaveWord()"
+  [saved]="isSaved"
+>
+</app-word-generated>
