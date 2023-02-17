@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Titles } from '../../models/titles-enums.model';
 
 @Component({
   selector: 'app-title',
@@ -6,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./title.component.sass']
 })
 export class TitleComponent implements OnInit {
-  @Input() title: string = 'Default';
+  @Input() title: Titles | string = 'Default';
   @Input() isSavedList: boolean = false;
 
   constructor() { }

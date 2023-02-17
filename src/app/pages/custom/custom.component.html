@@ -1,1 +1,17 @@
-<p>custom works!</p>
+<app-title [title]="title" [isSavedList]="true"></app-title>
+
+<form [formGroup]="form">
+  <mat-form-field appearance="outline" class="textArea">
+    <mat-label>Enter a comma separated list of items (Ex: apple, orange, lemon)</mat-label>
+    <textarea matInput formControlName="items"></textarea>
+  </mat-form-field>
+
+  <app-generate-button
+    buttonName='Get random item from list'
+    [isDisabled]="form.invalid"
+  >
+  </app-generate-button>
+</form>
+
+
+<app-word-generated></app-word-generated>
