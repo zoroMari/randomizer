@@ -17,15 +17,12 @@ export class FilterMethodService {
     switch (condition) {
       case TextStyle.upper:
         return word.toUpperCase();
-        break;
 
       case TextStyle.lower:
         return word.toLowerCase();
-        break;
 
       case TextStyle.cap:
         return word[0].toUpperCase() + word.slice(1).toLowerCase();
-        break;
     }
   }
 
@@ -33,19 +30,15 @@ export class FilterMethodService {
     switch (possibleLettersCondition) {
       case LettersAvailable.all:
         return allLetters;
-        break;
 
       case LettersAvailable.consonants:
         return 'bcdfghjklmnpqrstvwxz';
-        break;
 
       case LettersAvailable.vowels:
         return 'aeiouy';
-        break;
 
       case LettersAvailable.select:
         return selectedLetters;
-        break;
     }
   }
 

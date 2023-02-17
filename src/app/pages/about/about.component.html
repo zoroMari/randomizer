@@ -1,4 +1,4 @@
-<app-title title="About"></app-title>
+<app-title [title]="title"></app-title>
 
 <section class="about">
   <p class="text">
@@ -15,7 +15,7 @@
   </p>
 
   <p class="text">
-    In the <span><a>Custom</a></span> section, you can also create your own list of special items
+    In the <span><a routerLink="/custom" routerLinkActive="active">Custom</a></span> section, you can also create your own list of special items
     (names, phrases, numbers, whatever) and then get each of them randomly.
   </p>
 

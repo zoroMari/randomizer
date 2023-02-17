@@ -7,6 +7,10 @@ const routes: Route[] = [
     loadChildren: () => import('./pages/naming/naming.module').then(m => m.NamingModule),
   },
   {
+    path: 'custom',
+    loadChildren: () => import('./pages/custom/custom.module').then(m => m.CustomModule),
+  },
+  {
     path: 'numbers',
     loadChildren: () => import('./pages/numbers/numbers.module').then(m => m.NumbersModule),
   },
